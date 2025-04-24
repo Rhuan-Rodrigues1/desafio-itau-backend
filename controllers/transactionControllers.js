@@ -1,4 +1,4 @@
-const { createTransaction } = require("../services/transactionServices")
+const { createTransaction, deleteTransaction } = require("../services/transactionServices")
 const { sendJson } = require("../utils/response")
 
 function transactionPostController(req, res) {
@@ -8,8 +8,8 @@ function transactionPostController(req, res) {
     req.on('end', () => {
         try {
             const data = JSON.parse(body)
-            createTransaction(data)
-            sendJson(res, 201)
+            const transactions = createTransaction(data)
+            sendJson(res, 201, transactions)
         } catch (error) {
             
                 sendJson(res, 401, error)
@@ -18,5 +18,10 @@ function transactionPostController(req, res) {
     })
 }
 
+function transactionDeleteController(req, res) {
+    deleteTransaction()
+    sendJson(res, 200, {message: "Todas as informações foram apagadas com sucesso"})
+}
 
-module.exports = {transactionPostController}
+
+module.exports = {transactionPostController, transactionDeleteController}

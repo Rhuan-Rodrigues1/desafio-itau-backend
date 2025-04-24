@@ -11,10 +11,15 @@ function createTransaction(data) {
           }
         
           transactions.push(transaction)
-          return transaction
+          return transactions
         }
 
 }
 
+function deleteTransaction() {
+  transactions.splice(0, transactions.length)
+  return transactions
+}
 
-module.exports = {createTransaction}
+
+module.exports = {createTransaction, deleteTransaction}

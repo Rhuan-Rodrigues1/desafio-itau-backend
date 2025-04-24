@@ -1,6 +1,6 @@
 const { sendJson } = require("../utils/response")
 const { applyCors } = require("../utils/cors")
-const { transactionPostController } = require("../controllers/transactionControllers")
+const { transactionPostController, transactionDeleteController } = require("../controllers/transactionControllers")
 
 function router(req, res) {
     const { method, url } = req
@@ -19,6 +19,10 @@ function router(req, res) {
 
     if(method == "POST" && url == "/transacao") {
         return transactionPostController(req, res)
+    }
+
+    if(method == "DELETE" && url == "/transacao") {
+        return transactionDeleteController(req, res)
     }
 }
 
