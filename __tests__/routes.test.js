@@ -59,5 +59,13 @@ describe("Endpoints test",() => {
         expect(res.body[0].valor).toBe(100)
         expect(res.body[0].dataHora).toBe(dateTest)
     })
-    
+
+    test('DELETE deve apagar todas as transações', async () => {
+        
+        const res = await makeRequest({method: 'DELETE', path: '/transacao'})
+        
+
+        expect(res.status).toBe(200)
+        expect(res.body).toStrictEqual({message: "Todas as informações foram apagadas com sucesso"})
     })
+})
