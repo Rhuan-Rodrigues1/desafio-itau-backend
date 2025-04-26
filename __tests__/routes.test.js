@@ -68,4 +68,29 @@ describe("Endpoints test",() => {
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual({message: "Todas as informações foram apagadas com sucesso"})
     })
+
+    test('GET deve retornar dados estatisticos das transaçõoes', async () => {
+        const transaction1 = {
+            valor: 100,
+            dataHora: new Date()
+        }
+
+        const transaction2 = {
+            valor: 10,
+            dataHora: new Date()
+        }
+
+        await makeRequest({method: 'POST', path: "/transacao", data: transaction1})
+        await makeRequest({method: 'POST', path: "/transacao", data: transaction2})
+        const res = await makeRequest({method: 'GET', path: "/estatistica"})
+
+        expect(res.status).toBe(200)
+        expect(res.body).toStrictEqual({
+            count: 2,
+            sum: 110,
+            avg: 55,
+            min: 10,
+            max: 100
+          })
+    })
 })
